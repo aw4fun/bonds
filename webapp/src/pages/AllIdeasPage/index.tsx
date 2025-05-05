@@ -1,12 +1,12 @@
-import { trpc } from '../../lib/trpc'
+import { trpc } from '../../lib/trpc';
 
 const AllIdeasPage = () => {
   const { data, isLoading, error, isError, isFetching } =
-    trpc.getIdeas.useQuery()
+    trpc.getIdeas.useQuery();
 
-  if (isLoading || isFetching) return <div>loading...</div>
+  if (isLoading || isFetching) return <div>loading...</div>;
 
-  if (isError) return <div>{error.message}</div>
+  if (isError) return <div>{error.message}</div>;
 
   return (
     <div>
@@ -20,7 +20,7 @@ const AllIdeasPage = () => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default AllIdeasPage
+export default AllIdeasPage;
