@@ -3,8 +3,6 @@ import type { TrpcRouter } from '@bonds/backend/src/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 export const trpc = createTRPCReact<TrpcRouter>();
 
 const queryClient = new QueryClient({
