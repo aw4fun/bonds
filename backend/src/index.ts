@@ -11,6 +11,8 @@ expressApp.get('/ping', (req, res) => {
   res.send('Pong!');
 });
 
+const x: string = '2';
+
 // eslint-disable-next-line no-console
 console.log('dasd');
 
