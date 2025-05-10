@@ -11,10 +11,10 @@ expressApp.get('/ping', (req, res) => {
   res.send('Pong!');
 });
 
-const x: string = '2';
+const xsx: string = '2';
 
 // eslint-disable-next-line no-console
-console.log('dasd');
+console.log(xsx);
 
 expressApp.use(
   '/trpc',
