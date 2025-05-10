@@ -6,6 +6,7 @@
 		"b": "pnpm --filter @bonds/backend",
 		"w": "pnpm --filter @bonds/webapp",
 		"dev": "pnpm -r --parallel dev",
+		"lint": "concurrently 'pnpm b lint' 'pnpm w lint'",
 		"types": "concurrently 'pnpm b types' 'pnpm w types'",
 		"prettify": "pnpm -r --parallel prettify"
 	},
