@@ -4,9 +4,13 @@ const AllIdeasPage = () => {
   const { data, isLoading, error, isError, isFetching } =
     trpc.getIdeas.useQuery();
 
-  if (isLoading || isFetching) return <div>loading...</div>;
+  if (isLoading || isFetching) {
+    return <div>loading...</div>;
+  }
 
-  if (isError) return <div>{error.message}</div>;
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <div>

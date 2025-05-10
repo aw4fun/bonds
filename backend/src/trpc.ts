@@ -9,6 +9,9 @@ const ideas = [
 
 const trpc = initTRPC.create();
 
+// eslint-disable-next-line no-console
+console.log(trpc);
+
 export const trpcRouter = trpc.router({
   getIdeas: trpc.procedure.query(() => {
     return { ideas };
