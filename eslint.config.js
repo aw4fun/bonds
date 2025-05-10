@@ -25,6 +25,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/strict-boolean-expressions': 'off',
+      '@typescript-eslint/no-unused-vars': ['error'],
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
