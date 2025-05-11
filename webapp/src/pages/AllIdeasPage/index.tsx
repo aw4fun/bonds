@@ -5,7 +5,7 @@ const AllIdeasPage = () => {
     trpc.getIdeas.useQuery();
 
   if (isLoading || isFetching) {
-    return <div>loading...</div>;
+    return <div>loading....</div>;
   }
 
   if (isError) {
