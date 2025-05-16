@@ -1,11 +1,12 @@
 import { initTRPC } from '@trpc/server';
+import _ from 'lodash';
 
-const ideas = [
-  { id: 1, nick: 'some-nick-1', name: 'element 1', description: 'Element 1' },
-  { id: 2, nick: 'some-nick-1', name: 'element 2', description: 'Element 2' },
-  { id: 3, nick: 'some-nick-1', name: 'element 3', description: 'Element 3' },
-  { id: 4, nick: 'some-nick-1', name: 'element 4', description: 'Element 4' },
-];
+const ideas = _.times(100, (i) => ({
+  id: i,
+  nick: `some-nick-${i}`,
+  name: `element ${i}`,
+  description: `Element ${i}`,
+}));
 
 const trpc = initTRPC.create();
 
@@ -14,7 +15,11 @@ console.log(trpc);
 
 export const trpcRouter = trpc.router({
   getIdeas: trpc.procedure.query(() => {
-    return { ideas };
+    return {
+      ideas: ideas.map((idea) =>
+        _.pick(idea, ['id', 'nick', 'name', 'description'])
+      ),
+    };
   }),
 });
 

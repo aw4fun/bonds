@@ -2,7 +2,11 @@ import AllIdeasPage from './pages/AllIdeasPage';
 import { TrpcProvider } from './lib/trpc.tsx';
 import ViewIdeaPage from './pages/ViewIdea';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { getAllIdeasRoute, getViewIdeaRoute } from './lib/routes.ts';
+import {
+  getAllIdeasRoute,
+  getViewIdeaRoute,
+  viewIdeaRouteParams,
+} from './lib/routes.ts';
 
 export const App = () => (
   <TrpcProvider>
@@ -10,7 +14,7 @@ export const App = () => (
       <Routes>
         <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
         <Route
-          path={getViewIdeaRoute({ ideaNick: ':ideaNick' })}
+          path={getViewIdeaRoute(viewIdeaRouteParams)}
           Component={ViewIdeaPage}
         />
       </Routes>
