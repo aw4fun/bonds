@@ -7,16 +7,19 @@ import {
   getViewIdeaRoute,
   viewIdeaRouteParams,
 } from './lib/routes.ts';
+import Layout from './components/layout';
 
 export const App = () => (
   <TrpcProvider>
     <BrowserRouter>
       <Routes>
-        <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
-        <Route
-          path={getViewIdeaRoute(viewIdeaRouteParams)}
-          Component={ViewIdeaPage}
-        />
+        <Route element={<Layout />}>
+          <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
+          <Route
+            path={getViewIdeaRoute(viewIdeaRouteParams)}
+            Component={ViewIdeaPage}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   </TrpcProvider>
