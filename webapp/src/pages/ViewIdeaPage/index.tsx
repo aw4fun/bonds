@@ -3,6 +3,7 @@ import { ViewIdeaRouteParams } from '../../lib/routes.ts';
 import { trpc } from '../../lib/trpc.tsx';
 
 import st from './ViewIdea.module.less';
+import Segment from '../../components/Segment';
 
 const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams;
@@ -24,14 +25,12 @@ const ViewIdeaPage = () => {
   }
 
   return (
-    <div>
-      <h1 className={st.title}>{data?.idea.nick}</h1>
-      <p className={st.description}>{data?.idea.description}</p>
+    <Segment title={data?.idea.nick} description={data?.idea.description}>
       <div
         className={st.text}
         dangerouslySetInnerHTML={{ __html: data?.idea.text }}
       />
-    </div>
+    </Segment>
   );
 };
 
