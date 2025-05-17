@@ -1,0 +1,16 @@
+extends:
+  - stylelint-config-standard-less
+rules:
+  selector-class-pattern: null
+  selector-pseudo-element-colon-notation: 'single'
+  block-no-empty: null
+  declaration-empty-line-before: null
+  color-function-notation: null
+  alpha-value-notation: null
+  no-descending-specificity: null
+  declaration-block-no-redundant-longhand-properties: null
+  shorthand-property-no-redundant-values: null
+  color-hex-length: null
+  no-empty-source: null
+  less/color-no-invalid-hex: null
+  property-no-unknown: null

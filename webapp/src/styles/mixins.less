@@ -28,8 +28,8 @@
   }
 
   & when not (isstring(@num)) {
-    width: @num + 0px;
-    height: @num + 0px;
+    width: @num + 0;
+    height: @num + 0;
   }
 }
 
@@ -49,24 +49,24 @@
   }
 
   & when not (@r = 0) {
-    border-radius: @r + 0px;
+    border-radius: @r + 0;
   }
 }
 
 .top-radius(@r: @base-radius) {
-  border-radius: @r + 0px @r + 0px 0 0;
+  border-radius: @r + 0 @r + 0 0 0;
 }
 
 .bottom-radius(@r: @base-radius) {
-  border-radius: 0 0 @r + 0px @r + 0px;
+  border-radius: 0 0 @r + 0 @r + 0;
 }
 
 .left-radius(@r: @base-radius, @alt-r: 0) {
-  border-radius: @r + 0px @alt-r + 0px @alt-r + 0px @r + 0px;
+  border-radius: @r + 0 @alt-r + 0 @alt-r + 0 @r + 0;
 }
 
 .right-radius(@r: @base-radius, @alt-r: 0) {
-  border-radius: @alt-r + 0px @r + 0px @r + 0px @alt-r + 0px;
+  border-radius: @alt-r + 0 @r + 0 @r + 0 @alt-r + 0;
 }
 
 .abs-overlay(@position: absolute, @inset: 0) {
@@ -135,42 +135,42 @@
   content: '';
 
   & when (@direction = top) {
-    border-width: 0 (@width / 2 + 0px) (@height + 0px);
+    border-width: 0 (@width / 2 + 0) (@height + 0);
     border-bottom-color: @color;
   }
 
   & when (@direction = right) {
-    border-width: (@height / 2 + 0px) 0 (@height / 2 + 0px) (@width + 0px);
+    border-width: (@height / 2 + 0) 0 (@height / 2 + 0) (@width + 0);
     border-left-color: @color;
   }
 
   & when (@direction = bottom) {
-    border-width: (@height + 0px) (@width / 2 + 0px) 0;
+    border-width: (@height + 0) (@width / 2 + 0) 0;
     border-top-color: @color;
   }
 
   & when (@direction = left) {
-    border-width: (@height / 2 + 0px) (@width + 0px) (@height / 2 + 0px) 0;
+    border-width: (@height / 2 + 0) (@width + 0) (@height / 2 + 0) 0;
     border-right-color: @color;
   }
 
   & when (@direction = top-left) {
-    border-width: (@height + 0px) (@width + 0px) 0 0;
+    border-width: (@height + 0) (@width + 0) 0 0;
     border-top-color: @color;
   }
 
   & when (@direction = top-right) {
-    border-width: 0 (@width + 0px) (@height + 0px) 0;
+    border-width: 0 (@width + 0) (@height + 0) 0;
     border-right-color: @color;
   }
 
   & when (@direction = bottom-left) {
-    border-width: (@height + 0px) 0 0 (@width + 0px);
+    border-width: (@height + 0) 0 0 (@width + 0);
     border-left-color: @color;
   }
 
   & when (@direction = bottom-right) {
-    border-width: 0 0 (@height + 0px) (@width + 0px);
+    border-width: 0 0 (@height + 0) (@width + 0);
     border-bottom-color: @color;
   }
 }
@@ -223,12 +223,12 @@
     border-radius: @radius;
   }
 
-  &::after {
+  &:after {
     content: '';
     background: @border;
     mask:
-            linear-gradient(@white 0 0) content-box,
-            linear-gradient(@white 0 0);
+      linear-gradient(@white 0 0) content-box,
+      linear-gradient(@white 0 0);
     mask-composite: exclude;
     position: absolute;
     inset: @inset;
@@ -236,7 +236,7 @@
     padding: @bd-width;
 
     & when (isnumber(@bd-width)) {
-      padding: @bd-width + 0px;
+      padding: @bd-width + 0;
     }
 
     & when not (@radius = 0) {
@@ -301,11 +301,11 @@
 
 .blur(@r: 0, @mode: filter) {
   & when (@mode = filter) {
-    filter: blur(@r + 0px);
+    filter: blur(@r + 0);
   }
 
   & when (@mode = back) {
-    backdrop-filter: blur(@r + 0px);
+    backdrop-filter: blur(@r + 0);
   }
 }
 
