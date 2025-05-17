@@ -7,7 +7,7 @@ const ideas = _.times(100, (i) => ({
   nick: `some-nick-${i}`,
   name: `element ${i}`,
   description: `Element ${i}`,
-  text: _.times(11, () => '<span>Lorem ipsum dolor.</span>').join(''),
+  text: _.times(11, () => '<div>Lorem ipsum dolor.</div>').join(''),
 }));
 
 const trpc = initTRPC.create();

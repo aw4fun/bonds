@@ -1,0 +1,47 @@
+@xxl-font-size: 24px;
+@xl-font-size: 20px;
+@l-font-size: 18px;
+@m-font-size: 17px;
+@font-size: 16px;
+@s-font-size: 14px;
+@xs-font-size: 13px;
+@xxs-font-size: 12px;
+@us-font-size: 11px;
+
+@var-safe-area-top: var(--safe-area-top, 0);
+@var-safe-area-right: var(--safe-area-right, 0);
+@var-safe-area-bottom: var(--safe-area-bottom, 0);
+@var-safe-area-left: var(--safe-area-left, 0);
+@var-area-titlebar-height: var(--safe-area-titlebar-height, 0);
+
+@layout-width: 1424px + @desktop-padding * 2;
+@layout-width-m-tablet: 1136px + @desktop-padding * 2;
+@desktop-padding: 20px;
+@mobile-padding: 16px;
+
+@topline-offset: 16px;
+
+@topline-height: calc(72px + @var-safe-area-top);
+@topline-height-mobile: calc(@topline-height - @topline-offset);
+
+@topline-jackpot-played-height: 40px;
+@topline-cms-promo-height: 60px;
+@topline-screen-offset: calc(@topline-height + @topline-jackpot-played-height);
+
+@sidebar-width: 214px;
+
+@footer-offset: 120px;
+@s-laptop-footer-offset: 80px;
+@l-tablet-footer-offset: 40px;
+
+@mobile-tap-bar-height: calc(73px + var(--safe-area-bottom, 12px));
+
+@btn-default-size: 48px;
+@btn-default-tablet-size: 44px;
+@btn-large-size: 64px;
+@btn-medium-size: 40px;
+@btn-small-size: 36px;
+
+@base-radius: 20px;
+
+@vh-var: calc(var(--vh, 1vh) * 100);

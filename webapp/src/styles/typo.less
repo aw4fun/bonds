@@ -1,0 +1,271 @@
+@import 'media';
+@import 'sizes';
+
+@var-font-roboto: var(--font-roboto);
+.Roboto() {
+  font-family: @var-font-roboto;
+}
+
+@var-font-robotoflex: var(--font-robotoflex);
+.RobotoFlexFF() {
+  font-family: @var-font-robotoflex;
+}
+
+.RobotoFlex(@weight: 780, @text-transform: uppercase, @ltsp: 0.04em) {
+  .RobotoFlexFF();
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings:
+          'pnum' on,
+          'lnum' on;
+  font-variation-settings:
+          'wdth' 128,
+          'GRAD' 0,
+          'slnt' 0,
+          'XTRA' 468,
+          'XOPQ' 96,
+          'YOPQ' 100,
+          'YTLC' 514,
+          'YTUC' 712,
+          'YTAS' 750,
+            'YTDE' -203,
+          'YTFI' 738,
+          'opsz' 40;
+  font-weight: @weight;
+  text-transform: @text-transform;
+  letter-spacing: @ltsp;
+}
+
+@var-font-ptroot: var(--font-ptroot);
+.PTRoot() {
+  font-family: @var-font-ptroot;
+}
+
+@var-font-jost: var(--font-jost);
+.Jost() {
+  font-family: @var-font-jost;
+}
+
+@var-font-montserrat: var(--font-montserrat);
+.Montserrat() {
+  font-family: @var-font-montserrat;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+@var-font-montserrat-alternates: var(--font-montserrat-alternates);
+.MontserratAlternates() {
+  font-family: @var-font-montserrat-alternates;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+@var-font-commissioner: var(--font-commissioner);
+.Commissioner() {
+  font-family: @var-font-commissioner;
+}
+
+@var-font-rubik: var(--font-rubik);
+.Rubik() {
+  font-family: @var-font-rubik;
+}
+
+@var-font-pressstart2p: var(--font-pressstart2p);
+.PressStart2P() {
+  font-family: @var-font-pressstart2p;
+  font-weight: normal;
+}
+
+@var-font-mulish: var(--font-mulish);
+.Mulish() {
+  font-family: @var-font-mulish;
+}
+
+@var-font-golos: var(--font-golos);
+.Golos() {
+  font-family: @var-font-golos;
+}
+
+@var-font-spl: var(--font-spl);
+.SPL() {
+  font-family: @var-font-spl;
+}
+
+@var-font-inter: var(--font-inter);
+.Inter() {
+  font-family: @var-font-inter;
+}
+
+@var-font-rakkas: var(--font-rakkas);
+.Rakkas() {
+  font-family: @var-font-rakkas;
+}
+
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ellipsis-multiline(@num) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @num;
+  white-space: pre-wrap;
+}
+
+// Базовая типографика сайта (не для страниц игр)
+
+.base-promo-title() {
+  font-size: 40px;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.mobile-promo-title() {
+  font-size: 24px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.base-h1() {
+  font-size: 32px;
+  line-height: 36px;
+}
+
+.base-h2() {
+  font-size: @xxl-font-size; //24
+  line-height: 28px;
+}
+
+.base-h3() {
+  font-size: @xl-font-size; //20
+  line-height: 24px;
+}
+
+.base-text() {
+  font-size: @font-size; //16
+  line-height: 20px;
+}
+
+.paragraph-text() {
+  font-size: @font-size; //16
+  line-height: 24px;
+}
+
+.caption-text() {
+  color: @gray-day-500;
+  font-size: @xxs-font-size; //12
+  line-height: 16px;
+  letter-spacing: 0.2px;
+}
+
+.mobile-text() {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.xl-text() {
+  font-size: @xl-font-size; //20
+  line-height: 24px;
+}
+
+.l-text() {
+  font-size: @l-font-size; //18
+  line-height: 28px;
+}
+
+.m-text() {
+  font-size: @m-font-size; //17
+  line-height: 24px;
+}
+
+.s-text() {
+  font-size: @s-font-size; //14
+  line-height: 20px;
+}
+
+.xs-text() {
+  font-size: @xs-font-size; //13
+  line-height: 16px;
+}
+
+.xxs-text() {
+  font-size: @xxs-font-size; //12
+  line-height: 16px;
+}
+
+// Типографика для страниц игр
+
+.game-h1() {
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: 0.02em;
+}
+
+.game-mobile-h1() {
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.game-h2() {
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0.04em;
+}
+
+.game-mobile-h2() {
+  font-size: @xl-font-size; //20
+  line-height: 20px;
+}
+
+.game-h3() {
+  font-size: @l-font-size; //18
+  line-height: 28px;
+}
+
+// region ZABAVA
+.text-12_16() {
+  font-size: @xxs-font-size;
+  line-height: 16px;
+}
+
+.text-12_24() {
+  font-size: @xxs-font-size;
+  line-height: 24px;
+}
+
+.text-13_18() {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.text-14_20() {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.text-15_20() {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.text-16_24() {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.text-17_24() {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.text-18_24() {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.text-20_24() {
+  font-size: @xl-font-size; //20
+  line-height: 24px;
+}
+
+// endregion

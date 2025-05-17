@@ -8,6 +8,7 @@ import {
   viewIdeaRouteParams,
 } from './lib/routes.ts';
 import Layout from './components/layout';
+import './styles/global.less';
 
 export const App = () => (
   <TrpcProvider>

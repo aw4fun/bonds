@@ -1,19 +1,28 @@
 import { Link, Outlet } from 'react-router-dom';
 import { getAllIdeasRoute } from '../../lib/routes.ts';
+import st from './Layout.module.less';
 
 const Layout = () => {
   return (
-    <div>
-      <p>
-        <b>idea bonds</b>
-      </p>
-      <ul>
-        <li>
-          <Link to={getAllIdeasRoute()}>Home</Link>
-        </li>
-      </ul>
-      <hr />
-      <Outlet />
+    <div className={st.layout}>
+      <div className={st.navigation}>
+        <div className={st.logo}>idea bonds </div>
+        <ul className={st.menu}>
+          <li className={st.item}>
+            <Link className={st.link} to={getAllIdeasRoute()}>
+              Home
+            </Link>
+          </li>
+          <li className={st.item}>
+            <Link className={st.link} to={getAllIdeasRoute()}>
+              Some
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className={st.content}>
+        <Outlet />
+      </div>
     </div>
   );
 };

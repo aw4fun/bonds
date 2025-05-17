@@ -1,0 +1,449 @@
+@import './typo';
+@import './sizes';
+@import './media';
+
+// Layout
+
+.f-center(@display: flex) {
+  display: @display;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-between(@align-items: center) {
+  display: flex;
+  align-items: @align-items;
+  justify-content: space-between;
+}
+
+.f-column() {
+  display: flex;
+  flex-direction: column;
+}
+
+.square(@num) {
+  & when (@num = 'auto') {
+    width: auto;
+    height: auto;
+  }
+
+  & when not (isstring(@num)) {
+    width: @num + 0px;
+    height: @num + 0px;
+  }
+}
+
+.circle(@num) {
+  .square(@num);
+  border-radius: 50%;
+}
+
+.radius-adaptive(@num) {
+  @value: @num + 0px;
+  border-radius: ~'max(0px, min(@{value}, calc((100vw - (@{value} / 2) - 100%) * 9999)))';
+}
+
+.radius(@r: @base-radius) {
+  & when (@r = 0) {
+    border-radius: 0;
+  }
+
+  & when not (@r = 0) {
+    border-radius: @r + 0px;
+  }
+}
+
+.top-radius(@r: @base-radius) {
+  border-radius: @r + 0px @r + 0px 0 0;
+}
+
+.bottom-radius(@r: @base-radius) {
+  border-radius: 0 0 @r + 0px @r + 0px;
+}
+
+.left-radius(@r: @base-radius, @alt-r: 0) {
+  border-radius: @r + 0px @alt-r + 0px @alt-r + 0px @r + 0px;
+}
+
+.right-radius(@r: @base-radius, @alt-r: 0) {
+  border-radius: @alt-r + 0px @r + 0px @r + 0px @alt-r + 0px;
+}
+
+.abs-overlay(@position: absolute, @inset: 0) {
+  position: @position;
+  inset: @inset;
+}
+
+.abs-alignment(@x: 50%, @y: 50%, @offsetX: -50%, @offsetY: -50%, @position: absolute) {
+  .offset(@offsetX, @offsetY);
+  position: @position;
+  top: @y;
+  left: @x;
+}
+
+.absY-alignment(@y: 50%, @offset:  -50%) {
+  .offsetY(@offset);
+  position: absolute;
+  top: @y;
+}
+
+.absX-alignment(@x: 50%, @offset: -50%) {
+  .offsetX(@offset);
+  position: absolute;
+  left: @x;
+}
+
+.h100vh(@limitation: no) {
+  & when (@limitation = no) {
+    height: @vh-var;
+  }
+
+  & when (@limitation = min) {
+    min-height: @vh-var;
+  }
+
+  & when (@limitation = max) {
+    max-height: @vh-var;
+  }
+}
+
+.h100dvh(@limitation: no) {
+  @value: 100dvh;
+
+  & when (@limitation = no) {
+    height: @value;
+  }
+
+  & when (@limitation = min) {
+    min-height: @value;
+  }
+
+  & when (@limitation = max) {
+    max-height: @value;
+  }
+}
+
+.object-fit(@width: 100%, @height: 100%, @fit: cover) {
+  width: @width;
+  height: @height;
+  object-fit: @fit;
+}
+
+.triangle(@direction, @width, @height, @color) {
+  position: absolute;
+  border: solid transparent;
+  content: '';
+
+  & when (@direction = top) {
+    border-width: 0 (@width / 2 + 0px) (@height + 0px);
+    border-bottom-color: @color;
+  }
+
+  & when (@direction = right) {
+    border-width: (@height / 2 + 0px) 0 (@height / 2 + 0px) (@width + 0px);
+    border-left-color: @color;
+  }
+
+  & when (@direction = bottom) {
+    border-width: (@height + 0px) (@width / 2 + 0px) 0;
+    border-top-color: @color;
+  }
+
+  & when (@direction = left) {
+    border-width: (@height / 2 + 0px) (@width + 0px) (@height / 2 + 0px) 0;
+    border-right-color: @color;
+  }
+
+  & when (@direction = top-left) {
+    border-width: (@height + 0px) (@width + 0px) 0 0;
+    border-top-color: @color;
+  }
+
+  & when (@direction = top-right) {
+    border-width: 0 (@width + 0px) (@height + 0px) 0;
+    border-right-color: @color;
+  }
+
+  & when (@direction = bottom-left) {
+    border-width: (@height + 0px) 0 0 (@width + 0px);
+    border-left-color: @color;
+  }
+
+  & when (@direction = bottom-right) {
+    border-width: 0 0 (@height + 0px) (@width + 0px);
+    border-bottom-color: @color;
+  }
+}
+
+.aspect-ratio(@width: var(--aspect-ratio-width), @height: var(--aspect-ratio-height)) {
+  @supports (aspect-ratio: 1) {
+    aspect-ratio: ~'@{width} / @{height}';
+  }
+
+  @supports not (aspect-ratio: 1) {
+    padding-top: calc((@height / @width) * 100%);
+  }
+}
+
+.aspect-ratio-vars() {
+  @width: var(--aspect-ratio-width);
+  @height: var(--aspect-ratio-height);
+
+  @supports (aspect-ratio: 1) {
+    aspect-ratio: ~'@{width} / @{height}';
+  }
+
+  @supports not (aspect-ratio: 1) {
+    padding-top: calc((@height / @width) * 100%);
+  }
+}
+
+.linear-gradient-text(@bg) {
+  background: @bg;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.linear-border(
+  @bg: none,
+  @bd-width: 2,
+  @border: linear-gradient(180deg, fade(@white, 40%) 0, fade(@white, 20%) 100%),
+  @position: relative,
+  @radius: 0,
+  @inset: 0
+) {
+  position: @position;
+
+  & when not (@bg = none) {
+    background: @bg;
+  }
+
+  & when not (@radius = 0) {
+    border-radius: @radius;
+  }
+
+  &::after {
+    content: '';
+    background: @border;
+    mask:
+            linear-gradient(@white 0 0) content-box,
+            linear-gradient(@white 0 0);
+    mask-composite: exclude;
+    position: absolute;
+    inset: @inset;
+    pointer-events: none;
+    padding: @bd-width;
+
+    & when (isnumber(@bd-width)) {
+      padding: @bd-width + 0px;
+    }
+
+    & when not (@radius = 0) {
+      border-radius: @radius;
+    }
+  }
+}
+
+// Transforms and animations
+
+.transition(@prop: all, @duration: 0.2s, @function: linear, @delay: 0s) {
+  transition+: @arguments;
+}
+
+.offset(@x: -50%, @y: -50%) {
+  transform+_: translate(@x, @y);
+}
+
+.offsetX(@x: -50%) {
+  transform+_: translateX(@x);
+}
+
+.offsetY(@y: -50%) {
+  transform+_: translateY(@y);
+}
+
+.offsetZ(@y: -50%) {
+  transform+_: translateZ(@y);
+}
+
+.scale(@scale) {
+  transform+_: scale(@scale);
+}
+
+.rotate(@angle) {
+  transform+_: rotate(@angle + 0deg);
+}
+
+.rotateY(@angle) {
+  transform+_: rotateY(@angle + 0deg);
+}
+
+.rotate3d(@angle, @x: 1, @y: 1, @z: 1) {
+  transform+_: rotate3d(@x, @y, @z, @angle + 0deg);
+}
+
+.skewX(@angle) {
+  transform+_: skewX(@angle + 0deg);
+}
+
+.skewY(@angle) {
+  transform+_: skewY(@angle + 0deg);
+}
+
+.flipX() {
+  .scale(~'-1, 1');
+}
+
+.flipY() {
+  .scale(~'1, -1');
+}
+
+.blur(@r: 0, @mode: filter) {
+  & when (@mode = filter) {
+    filter: blur(@r + 0px);
+  }
+
+  & when (@mode = back) {
+    backdrop-filter: blur(@r + 0px);
+  }
+}
+
+.smooth-show(@t: 0.2s, @display: block) {
+  animation: smooth-show @t linear forwards;
+  display: @display;
+}
+
+// UI
+.media-support-hover(@content) {
+  @media @large-then-mobile and (hover: hover) and (pointer: fine) {
+    @content();
+  }
+}
+
+.media-hover(@content) {
+  .media-support-hover({
+    &:hover {
+      @content();
+    }
+  });
+}
+
+.hover(@start-color, @end-color) {
+  .transition(color);
+  color: @start-color;
+
+  .media-hover({
+    color: @end-color;
+  });
+}
+
+.hover-brand-link() {
+  .hover(@brand-system-links, darken(@brand-system-links, 15%));
+}
+
+.hover-alt-brand-link() {
+  .hover(@gray-day-900, darken(@gray-day-900, 60%));
+}
+
+.scroll-touch(@axis: y) {
+  -webkit-overflow-scrolling: touch;
+
+  & when (@axis = x) {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  & when (@axis = y) {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  & when (@axis = auto) {
+    overflow: auto;
+  }
+}
+
+.hide-scrollbar() {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.hidden-field() {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+.button-reset() {
+  .Roboto();
+  font-size: @font-size;
+  padding: 0;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-weight: normal;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.styled-scrollbar(
+  @width: 4px,
+  @height: 84px,
+  @radius: 63,
+  @background: inherit,
+  @track: transparent,
+  @scrollbarWidth: thin,
+  @scrollbarColorThumb: @gray-alpha-night-200,
+  @scrollbarColorTrack: transparent
+) {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @media @large-then-tablet {
+    @supports not selector(::-webkit-scrollbar) {
+      scrollbar-width: @scrollbarWidth;
+      scrollbar-color: @scrollbarColorThumb @scrollbarColorTrack;
+    }
+
+    &::-webkit-scrollbar {
+      width: @width;
+      height: @height;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: @track;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      .radius(@radius);
+      background: @background;
+    }
+  }
+
+  @media @l-tablet {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.footer-offset() {
+  padding-bottom: @footer-offset;
+
+  @media @s-laptop {
+    padding-bottom: @s-laptop-footer-offset;
+  }
+
+  @media @l-tablet {
+    padding-bottom: @l-tablet-footer-offset;
+  }
+}
