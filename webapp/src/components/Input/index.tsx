@@ -1,18 +1,17 @@
-import { Dispatch, SetStateAction } from 'react';
+import { FormikProps } from 'formik';
 
 const Input = ({
   name,
   label,
-  state,
-  setState,
+  formik,
 }: {
   name: string;
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setState: Dispatch<SetStateAction<any>>;
+  formik: FormikProps<any>;
 }) => {
+  const value = formik.values[name];
+
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}</label>
@@ -20,9 +19,9 @@ const Input = ({
       <input
         type="text"
         onChange={(e) => {
-          setState({ ...state, [name]: e.target.value });
+          void formik.setFieldValue(name, e.target.value);
         }}
-        value={state[name]}
+        value={value}
         name={name}
         id={name}
       />
