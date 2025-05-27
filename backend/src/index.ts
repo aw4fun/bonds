@@ -1,7 +1,7 @@
 import express from 'express';
-import * as trpcExpress from '@trpc/server/adapters/express';
-import { trpcRouter } from './trpc';
 import cors from 'cors';
+import { applyTrpcToExpressApp } from './lib/trpc';
+import { trpcRouter } from './router';
 
 const expressApp = express();
 
@@ -16,10 +16,7 @@ const xsx: string = '2';
 // eslint-disable-next-line no-console
 console.log(xsx);
 
-expressApp.use(
-  '/trpc',
-  trpcExpress.createExpressMiddleware({ router: trpcRouter })
-);
+applyTrpcToExpressApp(expressApp, trpcRouter);
 
 expressApp.listen(3000, () => {
   // eslint-disable-next-line no-console
