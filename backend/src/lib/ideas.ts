@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 export const ideas = _.times(100, (i) => ({
-  id: i,
   nick: `some-nick-${i}`,
   name: `element ${i}`,
   description: `Element ${i}`,

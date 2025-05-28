@@ -20,8 +20,8 @@ const AllIdeasPage = () => {
   return (
     <Segment title="AllIdeasPage">
       <div>
-        {data?.ideas.map(({ id, description, nick }) => (
-          <div className={st.idea} key={id}>
+        {data?.ideas.map(({ description, nick = '' }, index) => (
+          <div className={st.idea} key={`${index}_${nick}`}>
             <Segment
               title={
                 <Link to={getViewIdeaRoute({ ideaNick: nick })}>{nick}</Link>
