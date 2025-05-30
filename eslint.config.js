@@ -32,6 +32,23 @@ export default tseslint.config(
       '@typescript-eslint/triple-slash-reference': 'off',
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@bonds/backend/**',
+                '!@bonds/backend/**/',
+                '!@bonds/backend/**/input',
+              ],
+              allowTypeImports: true,
+              message:
+                'Only types and input schemas are allowed to be imported from backend workspace',
+            },
+          ],
+        },
+      ],
       'jsx-a11y/anchor-is-valid': 'off',
       curly: ['error', 'all'],
 

@@ -6,3 +6,5 @@ export const ideas = _.times(100, (i) => ({
   description: `Element ${i}`,
   text: _.times(11, () => '<div>Lorem ipsum dolor.</div>').join(''),
 }));
+
+export const someWarning = 'crash';
