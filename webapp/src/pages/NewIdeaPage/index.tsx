@@ -7,6 +7,9 @@ import { withZodSchema } from 'formik-validator-zod';
 import { trpc } from '../../lib/trpc.tsx';
 import { zCreateIdeaTrpcInput } from '@bonds/backend/src/router/createIdea/input';
 import { useState } from 'react';
+import Alert from '../../components/alert';
+import Button from '../../components/button';
+import FormItems from '../../components/FormItems';
 
 const NewIdeaPage = () => {
   const createIdea = trpc.createIdea.useMutation();
@@ -42,27 +45,24 @@ const NewIdeaPage = () => {
           formik.handleSubmit();
         }}
       >
-        <Input name="name" label="Name" formik={formik} />
-        <Input name="nick" label="Nick" formik={formik} />
-        <Input
-          name="description"
-          label="Description"
-          formik={formik}
-          maxWidth={500}
-        />
-        <TextArea name="text" label="Text" formik={formik} />
-        {!formik.isValid && !!formik.submitCount && (
-          <div style={{ color: 'red' }}>Some fields are invalid</div>
-        )}
-        {!!submittingError && (
-          <div style={{ color: 'red' }}>{submittingError}</div>
-        )}
-        {successMessageVisible && (
-          <div style={{ color: 'green' }}>Idea created!</div>
-        )}
-        <button type="submit" disabled={formik.isSubmitting}>
-          {formik.isSubmitting ? 'Submitting...' : 'Create Idea'}
-        </button>
+        <FormItems>
+          <Input name="name" label="Name" formik={formik} />
+          <Input name="nick" label="Nick" formik={formik} />
+          <Input
+            name="description"
+            label="Description"
+            formik={formik}
+            maxWidth={500}
+          />
+          <TextArea maxWidth={500} name="text" label="Text" formik={formik} />
+          {!formik.isValid && !!formik.submitCount && (
+            <div style={{ color: 'red' }}>Some fields are invalid</div>
+          )}
+          {!!submittingError && <Alert color="red">{submittingError}</Alert>}
+          {successMessageVisible && <Alert color="green">Idea created!</Alert>}
+
+          <Button loading={formik.isSubmitting}>Create Idea</Button>
+        </FormItems>
       </form>
     </Segment>
   );

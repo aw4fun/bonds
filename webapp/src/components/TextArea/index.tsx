@@ -6,11 +6,13 @@ const TextArea = ({
   name,
   label,
   formik,
+  maxWidth,
 }: {
   name: string;
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikProps<any>;
+  maxWidth?: number;
 }) => {
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
@@ -23,8 +25,8 @@ const TextArea = ({
       <label className={st.label} htmlFor={name}>
         {label}
       </label>
-      <br />
       <textarea
+        style={{ maxWidth }}
         className={cn(st.input, { [st.invalid]: invalid })}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
