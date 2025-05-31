@@ -1,4 +1,6 @@
 import { FormikProps } from 'formik';
+import cn from 'classnames';
+import st from './TextArea.module.less';
 
 const TextArea = ({
   name,
@@ -13,12 +15,17 @@ const TextArea = ({
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
   const touched = formik.touched[name];
+  const invalid = !!touched && !!error;
+  const disabled = formik.isSubmitting;
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}</label>
+    <div className={cn(st.field, { [st.disabled]: disabled })}>
+      <label className={st.label} htmlFor={name}>
+        {label}
+      </label>
       <br />
       <textarea
+        className={cn(st.input, { [st.invalid]: invalid })}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}
@@ -30,7 +37,7 @@ const TextArea = ({
         id={name}
         disabled={formik.isSubmitting}
       />
-      {!!touched && !!error && <div style={{ color: 'red' }}>{error}</div>}
+      {invalid && <div className={st.error}>{error}</div>}
     </div>
   );
 };
