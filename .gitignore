@@ -9,6 +9,8 @@ lerna-debug.log*
 pnpm-lock.yaml
 pnpm-workspace.yaml
 
+backend/src/prisma/client
+
 node_modules
 dist
 dist-ssr

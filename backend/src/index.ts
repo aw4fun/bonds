@@ -1,24 +1,33 @@
+import { AppContext, createAppContext } from './lib/ctx';
 import express from 'express';
 import cors from 'cors';
 import { applyTrpcToExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
 
-const expressApp = express();
+void (async () => {
+  let ctx: AppContext | null = null;
 
-expressApp.use(cors());
+  try {
+    ctx = createAppContext();
+    const expressApp = express();
 
-expressApp.get('/ping', (req, res) => {
-  res.send('Pong!');
-});
+    expressApp.use(cors());
 
-const xsx: string = '2';
+    expressApp.get('/ping', (req, res) => {
+      res.send('Pong!');
+    });
 
-// eslint-disable-next-line no-console
-console.log(xsx);
+    applyTrpcToExpressApp(expressApp, ctx, trpcRouter);
 
-applyTrpcToExpressApp(expressApp, trpcRouter);
-
-expressApp.listen(3000, () => {
-  // eslint-disable-next-line no-console
-  console.info('Listening at http://localhost:3000');
-});
+    expressApp.listen(3000, () => {
+      // eslint-disable-next-line no-console
+      console.info('Listening at http://localhost:3000');
+    });
+  } catch (err) {
+    if (err instanceof Error) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      await ctx?.stop();
+    }
+  }
+})();
