@@ -20,15 +20,15 @@ const ViewIdeaPage = () => {
     return <div>{error.message}</div>;
   }
 
-  if (!data?.idea) {
+  if (!data) {
     return <span>idea not found</span>;
   }
 
   return (
-    <Segment title={data?.idea.nick} description={data?.idea.description}>
+    <Segment title={data?.nick} description={data?.description}>
       <div
         className={st.text}
-        dangerouslySetInnerHTML={{ __html: data?.idea.text }}
+        dangerouslySetInnerHTML={{ __html: data?.text }}
       />
     </Segment>
   );

@@ -1,13 +1,22 @@
 import { trpc } from '../../lib/trpc';
-import { ideas } from '../../lib/ideas';
 import { zCreateIdeaTrpcInput } from './input';
 
 export const createIdeaTrpcRoute = trpc.procedure
   .input(zCreateIdeaTrpcInput)
-  .mutation(({ input }) => {
-    if (ideas.find(({ nick }) => nick === input.nick)) {
+  .mutation(async ({ ctx, input }) => {
+    const _idea = await ctx.prisma.idea.findUnique({
+      where: {
+        nick: input.nick,
+      },
+    });
+
+    if (_idea) {
       throw Error('Idea with this nick already exists');
     }
 
-    ideas.unshift(input);
+    await ctx.prisma.idea.create({
+      data: input,
+    });
+
+    return true;
   });
