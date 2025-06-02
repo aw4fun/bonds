@@ -14,5 +14,5 @@ export const getIdeaTrpcRoute = trpc.procedure
       },
     });
 
-    return idea;
+    return { idea };
   });

@@ -4,6 +4,7 @@ import { trpc } from '../../lib/trpc.tsx';
 
 import st from './ViewIdea.module.less';
 import Segment from '../../components/Segment';
+import { format } from 'date-fns';
 
 const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams;
@@ -20,15 +21,18 @@ const ViewIdeaPage = () => {
     return <div>{error.message}</div>;
   }
 
-  if (!data) {
+  if (!data?.idea) {
     return <span>idea not found</span>;
   }
 
   return (
-    <Segment title={data?.nick} description={data?.description}>
+    <Segment title={data.idea.nick} description={data.idea.description}>
+      <div className={st.createdAt}>
+        createdAt:&nbsp;{format(data.idea.createdAt, 'yyyy-MM-dd')}
+      </div>
       <div
         className={st.text}
-        dangerouslySetInnerHTML={{ __html: data?.text }}
+        dangerouslySetInnerHTML={{ __html: data.idea.text }}
       />
     </Segment>
   );
