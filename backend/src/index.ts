@@ -17,7 +17,7 @@ void (async () => {
       res.send('Pong!');
     });
 
-    applyTrpcToExpressApp(expressApp, ctx, trpcRouter);
+    await applyTrpcToExpressApp(expressApp, ctx, trpcRouter);
 
     expressApp.listen(3000, () => {
       // eslint-disable-next-line no-console
