@@ -7,12 +7,14 @@ const Input = ({
   label,
   formik,
   maxWidth,
+  type = 'text',
 }: {
   name: string;
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikProps<any>;
   maxWidth?: number;
+  type?: 'text' | 'password';
 }) => {
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
@@ -28,7 +30,7 @@ const Input = ({
       <input
         style={{ maxWidth }}
         className={cn(st.input, { [st.invalid]: invalid })}
-        type="text"
+        type={type}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}

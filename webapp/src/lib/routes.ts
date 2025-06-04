@@ -16,4 +16,4 @@ export const getViewIdeaRoute = ({ ideaNick }: ViewIdeaRouteParams): string =>
   `/ideas/${ideaNick}`;
 
 export const getNewIdeaRoute = () => '/ideas/new';
-export const getEventRoute = () => '/event';
+export const getSignUpRoute = () => '/sign-up';
