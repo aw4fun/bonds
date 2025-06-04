@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   getAllIdeasRoute,
   getNewIdeaRoute,
+  getSignInRoute,
   getSignUpRoute,
   getViewIdeaRoute,
   viewIdeaRouteParams,
@@ -13,6 +14,7 @@ import Layout from './components/layout';
 import './styles/global.less';
 import NewIdeaPage from './pages/NewIdeaPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { SignInPage } from './pages/SignInPage';
 
 export const App = () => (
   <TrpcProvider>
@@ -20,6 +22,7 @@ export const App = () => (
       <Routes>
         <Route element={<Layout />}>
           <Route path={getSignUpRoute()} Component={SignUpPage} />
+          <Route path={getSignInRoute()} Component={SignInPage} />
           <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
           <Route path={getNewIdeaRoute()} Component={NewIdeaPage} />
           <Route

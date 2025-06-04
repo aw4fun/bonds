@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router-dom';
 import {
   getAllIdeasRoute,
   getNewIdeaRoute,
+  getSignInRoute,
   getSignUpRoute,
 } from '../../lib/routes.ts';
 import st from './Layout.module.less';
@@ -20,6 +21,11 @@ const Layout = () => {
           <li className={st.item}>
             <Link className={st.link} to={getNewIdeaRoute()}>
               New idea
+            </Link>
+          </li>
+          <li className={st.item}>
+            <Link className={st.link} to={getSignInRoute()}>
+              Sign In
             </Link>
           </li>
           <li className={st.item}>
