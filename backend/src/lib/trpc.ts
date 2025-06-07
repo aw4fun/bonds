@@ -5,9 +5,19 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import { AppContext } from './ctx';
 import superjson from 'superjson';
 import { expressHandler } from 'trpc-playground/handlers/express';
+import { ExpressRequest } from '../utils/types';
+
+const getCreateTrpcContext =
+  (appContext: AppContext) =>
+  ({ req }: trpcExpress.CreateExpressContextOptions) => ({
+    ...appContext,
+    me: (req as ExpressRequest).user || null,
+  });
+
+type TrpcContext = Awaited<ReturnType<typeof getCreateTrpcContext>>;
 
 export const trpc = initTRPC
-  .context<AppContext>()
+  .context<TrpcContext>()
   .create({ transformer: superjson });
 
 export const applyTrpcToExpressApp = async (
@@ -19,7 +29,7 @@ export const applyTrpcToExpressApp = async (
     '/trpc',
     trpcExpress.createExpressMiddleware({
       router: trpcRouter,
-      createContext: () => appContext,
+      createContext: getCreateTrpcContext(appContext),
     })
   );
 

@@ -6,6 +6,7 @@ import {
   getAllIdeasRoute,
   getNewIdeaRoute,
   getSignInRoute,
+  getSignOutRoute,
   getSignUpRoute,
   getViewIdeaRoute,
   viewIdeaRouteParams,
@@ -15,11 +16,14 @@ import './styles/global.less';
 import NewIdeaPage from './pages/NewIdeaPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { SignInPage } from './pages/SignInPage';
+import { SignOutPage } from './pages/SignOut';
 
 export const App = () => (
   <TrpcProvider>
     <BrowserRouter>
       <Routes>
+        <Route path={getSignOutRoute()} Component={SignOutPage} />
+
         <Route element={<Layout />}>
           <Route path={getSignUpRoute()} Component={SignUpPage} />
           <Route path={getSignInRoute()} Component={SignInPage} />

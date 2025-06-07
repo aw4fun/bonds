@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
 import { useState } from 'react';
-
+import Cookies from 'js-cookie';
 import { trpc } from '../../lib/trpc';
 import { zSignInTrpcInput } from '@bonds/backend/src/router/signIn/input';
 import Segment from '../../components/Segment';
@@ -9,9 +9,12 @@ import FormItems from '../../components/FormItems';
 import Input from '../../components/Input';
 import Alert from '../../components/alert';
 import Button from '../../components/button';
+import { useNavigate } from 'react-router-dom';
+import { getAllIdeasRoute } from '../../lib/routes.ts';
 
 export const SignInPage = () => {
-  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const navigate = useNavigate();
+  const trpcUtils = trpc.useContext();
   const [submittingError, setSubmittingError] = useState<string | null>(null);
   const signIn = trpc.signIn.useMutation();
   const formik = useFormik({
@@ -23,12 +26,10 @@ export const SignInPage = () => {
     onSubmit: async (values) => {
       try {
         setSubmittingError(null);
-        await signIn.mutateAsync(values);
-        formik.resetForm();
-        setSuccessMessageVisible(true);
-        setTimeout(() => {
-          setSuccessMessageVisible(false);
-        }, 3000);
+        const { token } = await signIn.mutateAsync(values);
+        Cookies.set('token', token, { expires: 99999 });
+        void trpcUtils.invalidate();
+        navigate(getAllIdeasRoute());
       } catch (error) {
         if (error instanceof Error) {
           setSubmittingError(error?.message);
@@ -52,9 +53,6 @@ export const SignInPage = () => {
             <Alert color="red">Some fields are invalid</Alert>
           )}
           {submittingError && <Alert color="red">{submittingError}</Alert>}
-          {successMessageVisible && (
-            <Alert color="green">Thanks for sign in!</Alert>
-          )}
           <Button loading={formik.isSubmitting}>Sign In</Button>
         </FormItems>
       </form>

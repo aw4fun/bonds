@@ -4,8 +4,10 @@ import { getIdeasTrpcRoute } from './getIdeas';
 import { createIdeaTrpcRoute } from './createIdea';
 import { signUpIdeaTrpcRoute } from './signUp';
 import { signInIdeaTrpcRoute } from './signIn';
+import { getMeTrpcRoute } from './getMe';
 
 export const trpcRouter = trpc.router({
+  getMe: getMeTrpcRoute,
   signUp: signUpIdeaTrpcRoute,
   signIn: signInIdeaTrpcRoute,
   getIdea: getIdeaTrpcRoute,
