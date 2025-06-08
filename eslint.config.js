@@ -17,6 +17,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'eslint-comments': 'eslint - comments',
       n: n,
     },
     rules: {
