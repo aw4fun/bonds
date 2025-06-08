@@ -35,6 +35,7 @@ export default tseslint.config(
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
       'n/no-process-env': 'error',
+      'no-warning-comments': 'off',
       '@typescript-eslint/no-restricted-imports': [
         'error',
         {
