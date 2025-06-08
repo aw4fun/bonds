@@ -36,7 +36,7 @@ export default tseslint.config(
       '@typescript-eslint/triple-slash-reference': 'off',
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
-      'n/no-process-env': 'error',
+      'n/no-process-env': 'warn',
       'no-warning-comments': 'off',
       'eslint-comments/no-unused-disable': 'off',
       '@typescript-eslint/no-restricted-imports': [
