@@ -24,8 +24,6 @@ export default tseslint.config(
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
       'jsx-a11y/anchor-is-valid': 'off',
-      'no-warning-comments': 'off',
-      'eslint-comments/no-unused-disable': 'off',
       curly: ['error', 'all'],
       'no-irregular-whitespace': [
         'error',
