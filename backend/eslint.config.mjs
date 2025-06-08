@@ -25,7 +25,6 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-assertions': 'off',
       'jsx-a11y/anchor-is-valid': 'off',
       curly: ['error', 'all'],
-
       'no-irregular-whitespace': [
         'error',
         {
