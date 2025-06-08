@@ -36,6 +36,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-assertions': 'off',
       'n/no-process-env': 'error',
       'no-warning-comments': 'off',
+      'eslint-comments/no-unused-disable': 'off',
       '@typescript-eslint/no-restricted-imports': [
         'error',
         {
