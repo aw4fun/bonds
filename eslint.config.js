@@ -54,6 +54,13 @@ export default tseslint.config(
       ],
       'jsx-a11y/anchor-is-valid': 'off',
       curly: ['error', 'all'],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: '[object.type=MetaProperty][property.name=env]',
+          message: 'Use instead import { env } from "lib/env"',
+        },
+      ],
 
       'no-irregular-whitespace': [
         'error',
