@@ -8,7 +8,7 @@ import Segment from '../../components/Segment';
 import FormItems from '../../components/FormItems';
 import Input from '../../components/Input';
 import Alert from '../../components/alert';
-import Button from '../../components/button';
+import { Button } from '../../components/button';
 import { useNavigate } from 'react-router-dom';
 import { getAllIdeasRoute } from '../../lib/routes.ts';
 

@@ -1,8 +1,9 @@
 import cn from 'classnames';
 import st from './Button.module.less';
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-const Button = ({
+export const Button = ({
   children,
   loading = false,
 }: {
@@ -20,4 +21,16 @@ const Button = ({
   );
 };
 
-export default Button;
+export const LinkButton = ({
+  children,
+  to,
+}: {
+  children: ReactNode;
+  to: string;
+}) => {
+  return (
+    <Link className={st.button} to={to}>
+      {children}
+    </Link>
+  );
+};

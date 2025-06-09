@@ -8,7 +8,7 @@ import { trpc } from '../../lib/trpc.tsx';
 import { zCreateIdeaTrpcInput } from '@bonds/backend/src/router/createIdea/input';
 import { useState } from 'react';
 import Alert from '../../components/alert';
-import Button from '../../components/button';
+import { Button } from '../../components/button';
 import FormItems from '../../components/FormItems';
 
 const NewIdeaPage = () => {

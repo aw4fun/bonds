@@ -7,7 +7,7 @@ import { zSignUpTrpcInput } from '@bonds/backend/src/router/signUp/input';
 import Segment from '../../components/Segment';
 import FormItems from '../../components/FormItems';
 import Alert from '../../components/alert';
-import Button from '../../components/button';
+import { Button } from '../../components/button';
 import Input from '../../components/Input';
 import Cookies from 'js-cookie';
 import { getAllIdeasRoute } from '../../lib/routes.ts';

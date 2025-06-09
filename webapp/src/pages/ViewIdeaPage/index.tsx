@@ -1,42 +1,60 @@
 import { useParams } from 'react-router-dom';
-import { ViewIdeaRouteParams } from '../../lib/routes.ts';
+import { getEditIdeaRoute, ViewIdeaRouteParams } from '../../lib/routes.ts';
 import { trpc } from '../../lib/trpc.tsx';
-
-import st from './ViewIdea.module.less';
 import Segment from '../../components/Segment';
 import { format } from 'date-fns';
+import st from './ViewIdea.module.less';
+import { LinkButton } from '../../components/button';
 
-const ViewIdeaPage = () => {
+export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams;
 
-  const { data, isLoading, error, isError, isFetching } = trpc.getIdea.useQuery(
-    { ideaNick }
-  );
+  const getIdeaResult = trpc.getIdea.useQuery({
+    ideaNick,
+  });
+  const getMeResult = trpc.getMe.useQuery();
 
-  if (isLoading || isFetching) {
-    return <div>loading....</div>;
+  if (
+    getIdeaResult.isLoading ||
+    getIdeaResult.isFetching ||
+    getMeResult.isLoading ||
+    getMeResult.isFetching
+  ) {
+    return <span>Loading...</span>;
   }
 
-  if (isError) {
-    return <div>{error.message}</div>;
+  if (getIdeaResult.isError) {
+    return <span>Error: {getIdeaResult.error.message}</span>;
   }
 
-  if (!data?.idea) {
-    return <span>idea not found</span>;
+  if (getMeResult.isError) {
+    return <span>Error: {getMeResult.error.message}</span>;
   }
+
+  if (!getIdeaResult?.data?.idea) {
+    return <span>Idea not found</span>;
+  }
+
+  const idea = getIdeaResult.data.idea;
+  const me = getMeResult?.data?.me;
 
   return (
-    <Segment title={data.idea.nick} description={data.idea.description}>
+    <Segment title={idea.name} description={idea.description}>
       <div className={st.createdAt}>
-        createdAt:&nbsp;{format(data.idea.createdAt, 'yyyy-MM-dd')}
+        Created At: {format(idea.createdAt, 'yyyy-MM-dd')}
       </div>
-      <div>Author: {data.idea.author.nick}</div>
+      <div className={st.author}>Author: {idea.author.nick}</div>
       <div
         className={st.text}
-        dangerouslySetInnerHTML={{ __html: data.idea.text }}
+        dangerouslySetInnerHTML={{ __html: idea.text }}
       />
+      {me?.id === idea.authorId && (
+        <div className={st.editButton}>
+          <LinkButton to={getEditIdeaRoute({ ideaNick: idea.nick })}>
+            Edit Idea
+          </LinkButton>
+        </div>
+      )}
     </Segment>
   );
 };
-
-export default ViewIdeaPage;
