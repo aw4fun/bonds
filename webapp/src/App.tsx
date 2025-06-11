@@ -13,7 +13,7 @@ import {
   getViewIdeaRoute,
   viewIdeaRouteParams,
 } from './lib/routes.ts';
-import Layout from './components/layout';
+import Layout from './components/Layout';
 import './styles/global.less';
 import NewIdeaPage from './pages/NewIdeaPage';
 import { SignUpPage } from './pages/SignUpPage';

@@ -1,57 +1,46 @@
-import { useState } from 'react';
 import { trpc } from '../../lib/trpc.tsx';
-import { useFormik } from 'formik';
-import { withZodSchema } from 'formik-validator-zod';
 import z from 'zod';
 import { zSignUpTrpcInput } from '@bonds/backend/src/router/signUp/input';
 import Segment from '../../components/Segment';
 import FormItems from '../../components/FormItems';
-import Alert from '../../components/alert';
-import { Button } from '../../components/button';
+import Alert from '../../components/Alert';
+import { Button } from '../../components/Button';
 import Input from '../../components/Input';
 import Cookies from 'js-cookie';
 import { getAllIdeasRoute } from '../../lib/routes.ts';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../lib/form.tsx';
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
   const trpcUtils = trpc.useContext();
-  const [submittingError, setSubmittingError] = useState<string | null>(null);
   const signUp = trpc.signUp.useMutation();
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: {
       nick: '',
       password: '',
       passwordAgain: '',
     },
-    validate: withZodSchema(
-      zSignUpTrpcInput
-        .extend({
-          passwordAgain: z.string().min(1),
-        })
-        .superRefine((val, ctx) => {
-          if (val.password !== val.passwordAgain) {
-            ctx.addIssue({
-              code: z.ZodIssueCode.custom,
-              message: 'Passwords must be the same',
-              path: ['passwordAgain'],
-            });
-          }
-        })
-    ),
-    onSubmit: async (values) => {
-      try {
-        setSubmittingError(null);
-        const { token } = await signUp.mutateAsync(values);
-        Cookies.set('token', token, { expires: 99999 });
-        void trpcUtils.invalidate();
-        navigate(getAllIdeasRoute());
-      } catch (error) {
-        if (error instanceof Error) {
-          setSubmittingError(error?.message);
+    validationSchema: zSignUpTrpcInput
+      .extend({
+        passwordAgain: z.string().min(1),
+      })
+      .superRefine((val, ctx) => {
+        if (val.password !== val.passwordAgain) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Passwords must be the same',
+            path: ['passwordAgain'],
+          });
         }
-      }
+      }),
+    onSubmit: async (values) => {
+      const { token } = await signUp.mutateAsync(values);
+      Cookies.set('token', token, { expires: 99999 });
+      void trpcUtils.invalidate();
+      navigate(getAllIdeasRoute());
     },
+    resetOnSuccess: false,
   });
 
   return (
@@ -71,11 +60,8 @@ export const SignUpPage = () => {
             type="password"
             formik={formik}
           />
-          {!formik.isValid && !!formik.submitCount && (
-            <Alert color="red">Some fields are invalid</Alert>
-          )}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Sign Up</Button>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Sign Up</Button>
         </FormItems>
       </form>
     </Segment>

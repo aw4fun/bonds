@@ -4,7 +4,7 @@ import { trpc } from '../../lib/trpc.tsx';
 import Segment from '../../components/Segment';
 import { format } from 'date-fns';
 import st from './ViewIdea.module.less';
-import { LinkButton } from '../../components/button';
+import { LinkButton } from '../../components/Button';
 
 export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams;

@@ -1,9 +1,6 @@
 import pick from 'lodash/pick';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { trpc } from '../../lib/trpc.tsx';
-import { useFormik } from 'formik';
-import { withZodSchema } from 'formik-validator-zod';
 import { zUpdateIdeaTrpcInput } from '@bonds/backend/src/router/updateIdea/input';
 import {
   type EditIdeaRouteParams,
@@ -13,9 +10,10 @@ import Segment from '../../components/Segment';
 import FormItems from '../../components/FormItems/index.tsx';
 import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
-import Alert from '../../components/alert';
-import { Button } from '../../components/button';
+import Alert from '../../components/Alert';
+import { Button } from '../../components/Button';
 import type { TrpcRouterOutput } from '@bonds/backend/src/router/index.ts';
+import { useForm } from '../../lib/form.tsx';
 
 const EditIdeaComponent = ({
   idea,
@@ -23,22 +21,16 @@ const EditIdeaComponent = ({
   idea: NonNullable<TrpcRouterOutput['getIdea']['idea']>;
 }) => {
   const navigate = useNavigate();
-  const [submittingError, setSubmittingError] = useState<string | null>(null);
   const updateIdea = trpc.updateIdea.useMutation();
-  const formik = useFormik({
+  const { formik, alertProps, buttonProps } = useForm({
     initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
-    validate: withZodSchema(zUpdateIdeaTrpcInput.omit({ ideaId: true })),
+    validationSchema: zUpdateIdeaTrpcInput.omit({ ideaId: true }),
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null);
-        await updateIdea.mutateAsync({ ideaId: idea.id, ...values });
-        navigate(getViewIdeaRoute({ ideaNick: values.nick }));
-      } catch (error) {
-        if (error instanceof Error) {
-          setSubmittingError(error.message);
-        }
-      }
+      await updateIdea.mutateAsync({ ideaId: idea.id, ...values });
+      navigate(getViewIdeaRoute({ ideaNick: values.nick }));
     },
+    resetOnSuccess: false,
+    showValidationAlert: true,
   });
 
   return (
@@ -54,11 +46,8 @@ const EditIdeaComponent = ({
             formik={formik}
           />
           <TextArea label="Text" name="text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && (
-            <Alert color="red">Some fields are invalid</Alert>
-          )}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Update Idea</Button>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Update Idea</Button>
         </FormItems>
       </form>
     </Segment>
