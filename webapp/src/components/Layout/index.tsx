@@ -7,10 +7,10 @@ import {
   getSignUpRoute,
 } from '../../lib/routes.ts';
 import st from './Layout.module.less';
-import { trpc } from '../../lib/trpc.tsx';
+import { useMe } from '../../lib/ctx.tsx';
 
 const Layout = () => {
-  const { data, isLoading, isFetching, isError } = trpc.getMe.useQuery();
+  const me = useMe();
 
   return (
     <div className={st.layout}>
@@ -23,7 +23,7 @@ const Layout = () => {
             </Link>
           </li>
 
-          {isFetching || isLoading || isError ? null : data?.me ? (
+          {me ? (
             <>
               <li className={st.item}>
                 <Link className={st.link} to={getNewIdeaRoute()}>
@@ -33,7 +33,7 @@ const Layout = () => {
 
               <li className={st.item}>
                 <Link className={st.link} to={getSignOutRoute()}>
-                  Log out {data.me.nick}
+                  Log out {me.nick}
                 </Link>
               </li>
             </>

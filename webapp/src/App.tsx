@@ -20,28 +20,31 @@ import { SignUpPage } from './pages/SignUpPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignOutPage } from './pages/SignOut';
 import { EditIdeaPage } from './pages/EditIdeaPage';
+import { AppContextProvider } from './lib/ctx.tsx';
 
 export const App = () => (
   <TrpcProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path={getSignOutRoute()} Component={SignOutPage} />
+    <AppContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={getSignOutRoute()} Component={SignOutPage} />
 
-        <Route element={<Layout />}>
-          <Route path={getSignUpRoute()} Component={SignUpPage} />
-          <Route path={getSignInRoute()} Component={SignInPage} />
-          <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
-          <Route path={getNewIdeaRoute()} Component={NewIdeaPage} />
-          <Route
-            path={getViewIdeaRoute(viewIdeaRouteParams)}
-            Component={ViewIdeaPage}
-          />
-          <Route
-            path={getEditIdeaRoute(editIdeaRouteParams)}
-            Component={EditIdeaPage}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<Layout />}>
+            <Route path={getSignUpRoute()} Component={SignUpPage} />
+            <Route path={getSignInRoute()} Component={SignInPage} />
+            <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
+            <Route path={getNewIdeaRoute()} Component={NewIdeaPage} />
+            <Route
+              path={getViewIdeaRoute(viewIdeaRouteParams)}
+              Component={ViewIdeaPage}
+            />
+            <Route
+              path={getEditIdeaRoute(editIdeaRouteParams)}
+              Component={EditIdeaPage}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AppContextProvider>
   </TrpcProvider>
 );
