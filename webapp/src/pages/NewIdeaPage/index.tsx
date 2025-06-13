@@ -7,8 +7,11 @@ import { Button } from '../../components/Button';
 import FormItems from '../../components/FormItems';
 import Alert from '../../components/Alert';
 import { useForm } from '../../lib/form.tsx';
+import { withPageWrapper } from '../../lib/pageWrapper.tsx';
 
-const NewIdeaPage = () => {
+const NewIdeaPage = withPageWrapper({
+  authorizedOnly: true,
+})(() => {
   const createIdea = trpc.createIdea.useMutation();
   const { formik, buttonProps, alertProps } = useForm({
     initialValues: { name: '', nick: '', description: '', text: '' },
@@ -45,6 +48,6 @@ const NewIdeaPage = () => {
       </form>
     </Segment>
   );
-};
+});
 
 export default NewIdeaPage;

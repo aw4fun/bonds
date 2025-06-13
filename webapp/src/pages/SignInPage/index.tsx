@@ -6,12 +6,12 @@ import FormItems from '../../components/FormItems';
 import Input from '../../components/Input';
 import Alert from '../../components/Alert';
 import { Button } from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
-import { getAllIdeasRoute } from '../../lib/routes.ts';
 import { useForm } from '../../lib/form.tsx';
+import { withPageWrapper } from '../../lib/pageWrapper.tsx';
 
-export const SignInPage = () => {
-  const navigate = useNavigate();
+export const SignInPage = withPageWrapper({
+  redirectAuthorized: true,
+})(() => {
   const trpcUtils = trpc.useContext();
   const signIn = trpc.signIn.useMutation();
 
@@ -25,7 +25,6 @@ export const SignInPage = () => {
       const { token } = await signIn.mutateAsync(values);
       Cookies.set('token', token, { expires: 99999 });
       void trpcUtils.invalidate();
-      navigate(getAllIdeasRoute());
     },
   });
 
@@ -46,4 +45,4 @@ export const SignInPage = () => {
       </form>
     </Segment>
   );
-};
+});

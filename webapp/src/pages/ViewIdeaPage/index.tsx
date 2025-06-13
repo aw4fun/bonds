@@ -5,30 +5,22 @@ import Segment from '../../components/Segment';
 import { format } from 'date-fns';
 import st from './ViewIdea.module.less';
 import { LinkButton } from '../../components/Button';
-import { useMe } from '../../lib/ctx.tsx';
+import { withPageWrapper } from '../../lib/pageWrapper.tsx';
 
-export const ViewIdeaPage = () => {
-  const { ideaNick } = useParams() as ViewIdeaRouteParams;
-
-  const getIdeaResult = trpc.getIdea.useQuery({
-    ideaNick,
-  });
-  const me = useMe();
-
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
-    return <span>Loading...</span>;
-  }
-
-  if (getIdeaResult.isError) {
-    return <span>Error: {getIdeaResult.error.message}</span>;
-  }
-
-  if (!getIdeaResult?.data?.idea) {
-    return <span>Idea not found</span>;
-  }
-
-  const idea = getIdeaResult.data.idea;
-
+export const ViewIdeaPage = withPageWrapper({
+  useQuery: () => {
+    const { ideaNick } = useParams() as ViewIdeaRouteParams;
+    return trpc.getIdea.useQuery({
+      ideaNick,
+    });
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found',
+  setProps: ({ queryResult, ctx }) => ({
+    idea: queryResult.data.idea!,
+    me: ctx.me,
+  }),
+})(({ idea, me }) => {
   return (
     <Segment title={idea.name} description={idea.description}>
       <div className={st.createdAt}>
@@ -48,4 +40,4 @@ export const ViewIdeaPage = () => {
       )}
     </Segment>
   );
-};
+});

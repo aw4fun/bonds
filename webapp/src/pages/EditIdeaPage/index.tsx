@@ -12,15 +12,34 @@ import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
 import Alert from '../../components/Alert';
 import { Button } from '../../components/Button';
-import type { TrpcRouterOutput } from '@bonds/backend/src/router/index.ts';
 import { useForm } from '../../lib/form.tsx';
-import { useMe } from '../../lib/ctx.tsx';
+import { withPageWrapper } from '../../lib/pageWrapper.tsx';
 
-const EditIdeaComponent = ({
-  idea,
-}: {
-  idea: NonNullable<TrpcRouterOutput['getIdea']['idea']>;
-}) => {
+export const EditIdeaPage = withPageWrapper({
+  authorizedOnly: true,
+  useQuery: () => {
+    const { ideaNick } = useParams() as EditIdeaRouteParams;
+    return trpc.getIdea.useQuery({ ideaNick });
+  },
+  checkExists: ({ queryResult }) => {
+    return Boolean(queryResult?.data?.idea);
+  },
+  checkExistsMessage: 'Idea not found',
+  checkAccess: ({ queryResult, ctx }) => {
+    const idea = queryResult?.data?.idea;
+    if (!idea) {
+      return false;
+    }
+    return ctx.me?.id === idea.authorId;
+  },
+  checkAccessMessage: 'An idea can only be edited by the author',
+  setProps: ({ queryResult }) => {
+    return {
+      //  eslint-disable-next-line  @typescript-eslint/no-non-null-asserted-optional-chain
+      idea: queryResult?.data?.idea!,
+    };
+  },
+})(({ idea }) => {
   const navigate = useNavigate();
   const updateIdea = trpc.updateIdea.useMutation();
   const { formik, alertProps, buttonProps } = useForm({
@@ -53,37 +72,4 @@ const EditIdeaComponent = ({
       </form>
     </Segment>
   );
-};
-
-export const EditIdeaPage = () => {
-  const { ideaNick } = useParams() as EditIdeaRouteParams;
-
-  const getIdeaResult = trpc.getIdea.useQuery({
-    ideaNick,
-  });
-  const me = useMe();
-
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
-    return <span>Loading...</span>;
-  }
-
-  if (getIdeaResult.isError) {
-    return <span>Error: {getIdeaResult.error.message}</span>;
-  }
-
-  if (!getIdeaResult?.data?.idea) {
-    return <span>Idea not found</span>;
-  }
-
-  const idea = getIdeaResult.data.idea;
-
-  if (!me) {
-    return <span>Only for authorized</span>;
-  }
-
-  if (me.id !== idea.authorId) {
-    return <span>An idea can only be edited by the author</span>;
-  }
-
-  return <EditIdeaComponent idea={idea} />;
-};
+});
