@@ -33,10 +33,14 @@ export const EditIdeaPage = withPageWrapper({
     return ctx.me?.id === idea.authorId;
   },
   checkAccessMessage: 'An idea can only be edited by the author',
-  setProps: ({ queryResult }) => {
+  setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
+    const idea = checkExists(queryResult.data.idea, 'Idea not found');
+    checkAccess(
+      ctx.me?.id === idea.authorId,
+      'An idea can only be edited by the author'
+    );
     return {
-      //  eslint-disable-next-line  @typescript-eslint/no-non-null-asserted-optional-chain
-      idea: queryResult?.data?.idea!,
+      idea,
     };
   },
 })(({ idea }) => {
