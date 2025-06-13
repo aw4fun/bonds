@@ -21,6 +21,7 @@ import { SignInPage } from './pages/SignInPage';
 import { SignOutPage } from './pages/SignOut';
 import { EditIdeaPage } from './pages/EditIdeaPage';
 import { AppContextProvider } from './lib/ctx.tsx';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export const App = () => (
   <TrpcProvider>
@@ -43,6 +44,7 @@ export const App = () => (
               Component={EditIdeaPage}
             />
           </Route>
+          <Route path="*" Component={NotFoundPage} />
         </Routes>
       </BrowserRouter>
     </AppContextProvider>

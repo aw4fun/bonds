@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorPageComponent } from '../components/ErrorPageComponent';
 import { type AppContext, useAppContext } from './ctx';
 import { getAllIdeasRoute } from './routes';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 class CheckExistsError extends Error {}
 const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
@@ -78,8 +79,8 @@ const PageWrapper = <
   checkAccessTitle = 'Access Denied',
   checkAccessMessage = 'You have no access to this page',
   checkExists,
-  checkExistsTitle = 'Not Found',
-  checkExistsMessage = 'This page does not exist',
+  checkExistsTitle,
+  checkExistsMessage,
   useQuery,
   setProps,
   Page,
@@ -119,10 +120,7 @@ const PageWrapper = <
     const accessDenied = !checkAccess(helperProps);
     if (accessDenied) {
       return (
-        <ErrorPageComponent
-          title={checkAccessTitle}
-          message={checkAccessMessage}
-        />
+        <NotFoundPage title={checkAccessTitle} message={checkAccessMessage} />
       );
     }
   }
@@ -131,10 +129,7 @@ const PageWrapper = <
     const notExists = !checkExists(helperProps);
     if (notExists) {
       return (
-        <ErrorPageComponent
-          title={checkExistsTitle}
-          message={checkExistsMessage}
-        />
+        <NotFoundPage title={checkExistsTitle} message={checkExistsMessage} />
       );
     }
   }
