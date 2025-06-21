@@ -1,6 +1,6 @@
-import AllIdeasPage from './pages/AllIdeasPage';
+import AllIdeasPage from './pages/ideas/AllIdeasPage';
 import { TrpcProvider } from './lib/trpc.tsx';
-import { ViewIdeaPage } from './pages/ViewIdeaPage';
+import { ViewIdeaPage } from './pages/ideas/ViewIdeaPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   editIdeaRouteParams,
@@ -15,13 +15,13 @@ import {
 } from './lib/routes.ts';
 import Layout from './components/Layout';
 import './styles/global.less';
-import NewIdeaPage from './pages/NewIdeaPage';
-import { SignUpPage } from './pages/SignUpPage';
-import { SignInPage } from './pages/SignInPage';
-import { SignOutPage } from './pages/SignOut';
-import { EditIdeaPage } from './pages/EditIdeaPage';
+import NewIdeaPage from './pages/ideas/NewIdeaPage';
+import { SignUpPage } from './pages/auth/SignUpPage';
+import { SignInPage } from './pages/auth/SignInPage';
+import { SignOutPage } from './pages/auth/SignOut';
+import { EditIdeaPage } from './pages/ideas/EditIdeaPage';
 import { AppContextProvider } from './lib/ctx.tsx';
-import { NotFoundPage } from './pages/NotFoundPage';
+import { NotFoundPage } from './pages/other/NotFoundPage';
 
 export const App = () => (
   <TrpcProvider>
