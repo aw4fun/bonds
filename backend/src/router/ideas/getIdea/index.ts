@@ -17,6 +17,7 @@ export const getIdeaTrpcRoute = trpc.procedure
           select: {
             nick: true,
             id: true,
+            name: true,
           },
         },
       },

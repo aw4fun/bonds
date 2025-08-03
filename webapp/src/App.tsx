@@ -6,6 +6,7 @@ import {
   editIdeaRouteParams,
   getAllIdeasRoute,
   getEditIdeaRoute,
+  getEditProfileRoute,
   getNewIdeaRoute,
   getSignInRoute,
   getSignOutRoute,
@@ -22,6 +23,7 @@ import { SignOutPage } from './pages/auth/SignOut';
 import { EditIdeaPage } from './pages/ideas/EditIdeaPage';
 import { AppContextProvider } from './lib/ctx.tsx';
 import { NotFoundPage } from './pages/other/NotFoundPage';
+import { EditProfilePage } from './pages/auth/EditProfilePage/index.tsx';
 
 export const App = () => (
   <TrpcProvider>
@@ -35,6 +37,7 @@ export const App = () => (
             <Route path={getSignInRoute()} Component={SignInPage} />
             <Route path={getAllIdeasRoute()} Component={AllIdeasPage} />
             <Route path={getNewIdeaRoute()} Component={NewIdeaPage} />
+            <Route path={getEditProfileRoute()} Component={EditProfilePage} />
             <Route
               path={getViewIdeaRoute(viewIdeaRouteParams)}
               Component={ViewIdeaPage}

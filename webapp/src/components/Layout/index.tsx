@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import {
   getAllIdeasRoute,
+  getEditProfileRoute,
   getNewIdeaRoute,
   getSignInRoute,
   getSignOutRoute,
@@ -28,6 +29,12 @@ const Layout = () => {
               <li className={st.item}>
                 <Link className={st.link} to={getNewIdeaRoute()}>
                   New idea
+                </Link>
+              </li>
+
+              <li className={st.item}>
+                <Link className={st.link} to={getEditProfileRoute()}>
+                  Edit Profile
                 </Link>
               </li>
 

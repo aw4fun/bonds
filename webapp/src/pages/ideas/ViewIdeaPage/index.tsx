@@ -24,7 +24,10 @@ export const ViewIdeaPage = withPageWrapper({
       <div className={st.createdAt}>
         Created At: {format(idea.createdAt, 'yyyy-MM-dd')}
       </div>
-      <div className={st.author}>Author: {idea.author.nick}</div>
+      <div className={st.author}>
+        Author: {idea.author.nick}
+        {idea.author.name ? ` (${idea.author.name})` : ''}
+      </div>
       <div
         className={st.text}
         dangerouslySetInnerHTML={{ __html: idea.text }}
