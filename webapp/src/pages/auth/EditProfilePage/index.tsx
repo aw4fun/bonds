@@ -10,7 +10,7 @@ import { zUpdateProfileTrpcInput } from '@bonds/backend/src/router/auth/updatePr
 
 export const EditProfilePage = withPageWrapper({
   authorizedOnly: true,
-  setProps: ({ ctx }) => ({ me: ctx.me! }),
+  setProps: ({ getAuthorizedMe }) => ({ me: getAuthorizedMe() }),
 })(({ me }) => {
   const trpcUtils = trpc.useContext();
   const updateProfile = trpc.updateProfile.useMutation();
